@@ -1,0 +1,9 @@
+BoldAsFont=-1
+Font=Lucida Sans Typewriter
+FontHeight=10
+FontSmoothing=full
+CopyOnSelect=yes
+Term=xterm-256color
+ClicksPlaceCursor=yes
+ComposeKey=shift
+SwitchShortcuts=yes
