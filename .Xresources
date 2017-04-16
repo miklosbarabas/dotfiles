@@ -1,3 +1,7 @@
 XTerm*metaSendsEscape: true
 XTerm*eightBitInput: false
-
+XTerm*selectToClipboard: true
+xterm*VT100.Translations: #override \
+                 Shift <Key>Insert:    insert-selection(SELECT) \n\
+                 Ctrl Shift <Key>V:    insert-selection(SELECT) \n\
+                 Ctrl Shift <Key>C:    copy-selection(SELECT)
