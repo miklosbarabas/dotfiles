@@ -34,3 +34,13 @@ if [[ -z "$TMUX" ]] ;then
         tmux attach-session -t "$ID" # if available attach to it
     fi
 fi
+
+### KUBECTL AUTOCOMPLETE
+source <(kubectl completion bash) # setup autocomplete in bash, bash-completion package should be installed first.
+
+### SSH TMUX RENAME
+ssh() {
+    tmux rename-window "$*"
+    command ssh "$@"
+    tmux rename-window "bash"
+}
