@@ -50,17 +50,17 @@ fi
 #     tmux rename-window "bash"
 # }
 
-getAWSTokenRemainingMinutes() {
-	aws_token_remaining=$(($AWS_EXPIRY - `date +%s`))
-	aws_token_remaining_minutes=$(($aws_token_remaining/60))
-	echo $aws_token_remaining_minutes
-}
+# getAWSTokenRemainingMinutes() {
+# 	aws_token_remaining=$(($AWS_EXPIRY - `date +%s`))
+# 	aws_token_remaining_minutes=$(($aws_token_remaining/60))
+# 	echo $aws_token_remaining_minutes
+# }
 alias dps="docker ps -q | xargs docker inspect --format='{{ .Name }} - {{range .NetworkSettings.Networks}}{{println .IPAddress}}{{end}}'"
 
 # xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/handle-brightness-keys
-xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/handle-brightness-keys --create -t bool -s true
+#xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/handle-brightness-keys --create -t bool -s true
 
 # xinput --list
-sudo xinput --set-prop 'Microsoft Microsoft 3-Button Mouse with IntelliEye(TM)' 'libinput Accel Profile Enabled' 0, 1
+#sudo xinput --set-prop 'Microsoft Microsoft 3-Button Mouse with IntelliEye(TM)' 'libinput Accel Profile Enabled' 0, 1
 
-
+export PATH="$HOME/bin:$HOME/Tools:$PATH"
