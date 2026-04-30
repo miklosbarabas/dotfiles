@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Enable two-finger back/forward in Chrome via desktop entry
+# Enable two-finger swipe to back/forward in Chrome via desktop entry
 
 echo "→ Creating local applications directory..."
 mkdir -p ~/.local/share/applications
