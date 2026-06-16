@@ -1,0 +1,101 @@
+services:
+  llama-cpp:
+    image: ghcr.io/ggml-org/llama.cpp:server-vulkan-b9309 # or server-rocm-b9309
+    pull_policy: always
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - ${HOME}/Workspaces/models:/models
+    ports:
+      - "8080:8080"
+    command:
+      - --port
+      - "8080"  
+      - --host
+      - 0.0.0.0
+      - -m
+      # - /models/Qwen3-Coder-Next-UD-Q4_K_M.gguf
+      # - /models/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf
+      - /models/Qwen3.6-35B-A3B-MTP-UD-Q4_K_M.gguf
+      - --reasoning
+      - "off"
+      - --reasoning-budget
+      - "0"
+      - --jinja
+      - --chat-template-kwargs
+      - '{"enable_thinking":false}'
+      # - --parallel
+      # - "1"
+      - --n-gpu-layers
+      - "all"
+      - --flash-attn
+      - "on"
+      - "-c" 
+      - "262144" # 65536 for 64k (or "131072" for 128k)
+      - "-b" 
+      - "4096"
+      - "-ub" 
+      - "1024"
+      - --spec-type
+      - draft-mtp
+      - --spec-draft-n-max
+      - "3"
+      - -n
+      - "-1"
+      - "--kv-unified"
+      - "--cache-ram"
+      - "0"
+      # - "--cache-type-k"
+      # - "q4_0"
+      # - "--cache-type-v"
+      # - "q4_0"
+
+
+  lemonade-server:
+    image: ghcr.io/lemonade-sdk/lemonade-server:latest
+    # container_name: lemonade-server
+    # restart: unless-stopped
+    ports:
+      - "13305:13305"
+      - "9000:9000"
+    devices:
+      - /dev/accel/accel0:/dev/accel/accel0
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    security_opt:
+      - seccomp=unconfined
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - lemonade-cache:/root/.cache/huggingface
+      - lemonade-llama:/opt/lemonade/llama
+      - lemonade-recipe:/root/.cache/lemonade
+      - lemonade-flm:/root/.config/flm
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    ports:
+      - "8081:8080"
+    environment:
+      - ENABLE_OLLAMA_API=false
+      - OPENAI_API_BASE_URL=http://llama-cpp:8080/v1
+      - OPENAI_API_KEY=sk-no-key-required
+      - WEBUI_AUTH=false
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - open-webui:/app/backend/data
+
+volumes:
+  lemonade-cache:
+  lemonade-llama:
+  lemonade-recipe:
+  lemonade-flm:
+  open-webui:

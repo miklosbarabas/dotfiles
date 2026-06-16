@@ -29,10 +29,11 @@ BASE_PACKAGES=(
   gnupg
   jq
   python3
-  qemu-kvm
+  qemu-system-x86-hwe
   bridge-utils
-  libvirt-clients
-  libvirt-daemon-system
+  libvirt-clients-qemu-hwe
+  libvirt-clients-hwe
+#  libvirt-daemon-system
   snapd
   tar
   tmux
