@@ -131,6 +131,8 @@ stream_max_retries = 2
 stream_idle_timeout_ms = 300000
 EOF"
 
+# sbx exec "$SANDBOX_NAME" bash -lc "sudo cp ~/.codex/config.toml /home/$(whoami)/.codex/config.toml"
+
 log "Current sandbox Codex config:"
 sbx exec "$SANDBOX_NAME" bash -lc "cat ~/.codex/config.toml"
 

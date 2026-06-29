@@ -43,6 +43,9 @@ fi
 ### KUBECTL AUTOCOMPLETE
 # source <(kubectl completion bash) # setup autocomplete in bash, bash-completion package should be installed first.
 
+### SBX AUTOCOMPLETE
+source ~/Tools/sbx-completion.sh
+
 ### SSH TMUX RENAME
 # ssh() {
 #     tmux rename-window "$*"
