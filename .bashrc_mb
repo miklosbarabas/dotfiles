@@ -59,6 +59,7 @@ source ~/Tools/sbx-completion.sh
 # 	echo $aws_token_remaining_minutes
 # }
 alias dps="docker ps -q | xargs docker inspect --format='{{ .Name }} - {{range .NetworkSettings.Networks}}{{println .IPAddress}}{{end}}'"
+alias cat="batcat"
 
 # xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/handle-brightness-keys
 #xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/handle-brightness-keys --create -t bool -s true
