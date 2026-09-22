@@ -30,16 +30,6 @@ export PROMPT_COMMAND='__git_ps1 "${BLUE}\u${PURPLE}@${YELLOW}\h${BLACK}:${RED}\
 # complete -F _complete_ssh_hosts ssh
 # complete -F _complete_ssh_hosts ping
 
-### TMUX
-if [[ -z "$TMUX" ]] ;then
-    ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
-    if [[ -z "$ID" ]] ;then # if not available create a new one
-        tmux new-session
-    else
-        tmux attach-session -t "$ID" # if available attach to it
-    fi
-fi
-
 ### KUBECTL AUTOCOMPLETE
 # source <(kubectl completion bash) # setup autocomplete in bash, bash-completion package should be installed first.
 
@@ -68,3 +58,21 @@ alias cat="batcat"
 #sudo xinput --set-prop 'Microsoft Microsoft 3-Button Mouse with IntelliEye(TM)' 'libinput Accel Profile Enabled' 0, 1
 
 export PATH="$HOME/bin:$HOME/Tools:$PATH"
+
+### TMUX
+#if [[ -z "$TMUX" ]] ;then
+#    ID="`tmux ls | grep -vm1 attached | cut -d: -f1`" # get the id of a deattached session
+#    if [[ -z "$ID" ]] ;then # if not available create a new one
+#        tmux new-session
+#    else
+#        tmux attach-session -t "$ID" # if available attach to it
+#    fi
+#fi
+
+### HERDR
+if [[ $- == *i* ]] &&
+   [[ -z "${HERDR_ENV:-}" ]] &&
+   [[ -z "${TMUX:-}" ]] 
+then
+    exec herdr
+fi
